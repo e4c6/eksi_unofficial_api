@@ -53,7 +53,7 @@ $ denotes a variable.
       <tr>
          <td>/token</td>
          <td>Returns bearer token. This end point uses content-type: application/x-www-form-urlencoded.</td>
-         <td>{'grant_type': password, 'username': INSERT_HERE, 'password': INSERT_HERE, 'client_secret': INSERT_HERE}</td>
+         <td>{'grant_type': 'password', 'username': 'INSERT_USERNAME', 'password': 'INSERT_PW', 'client_secret': 'INSERT_CS_HERE'}</td>
          <td>POST</td>
       </tr>
 	  <tr>
