@@ -54,7 +54,7 @@ $ denotes a variable.
          <td>/token</td>
          <td>Returns bearer token. This end point uses content-type: application/x-www-form-urlencoded.</td>
          <td>{'grant_type': 'password', 'username': 'INSERT_USERNAME', 'password': 'INSERT_PW', 'client_secret': 'INSERT_CS_HERE'}</td>
-         <td>POST</td>
+         <td>GET</td>
       </tr>
 	  <tr>
 		 <td>/v1/topic/$topic-id</td>
