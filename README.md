@@ -1,5 +1,3 @@
-This repo is archived. See [Porte](https://github.com/e4c6/porte) for latest docs.
-
 # Ekşisözlük Unofficial API Documentation - 2020
 
 See [tutorial](https://github.com/e4c6/eksi_unofficial_api/blob/master/eksi_api.ipynb).
