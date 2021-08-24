@@ -1,5 +1,6 @@
 # Ekşisözlük Unofficial API Documentation - 2021
 
+
 See [Jupyter Notebook](https://github.com/e4c6/eksi_unofficial_api/blob/master/eksi_api.ipynb) for a tutorial on EksiSozluk.py library.
 
 Note: $ denotes a variable.
