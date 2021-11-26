@@ -25,6 +25,7 @@ routes = {
     "user_unblock": "/v2/user/unblock",
     "user_indextitlesblock": "/v2/user/indextitlesblock",
     "user_removeindextitlesblock": "/v2/user/indextitlesblock",
+    "user_entries": "/v2/user/{}/entries",
     "user_favorited": "/v2/user/{}/favorited",
     "user_lastvoted": "/v2/user/{}/lastvoted",
     "user_lastweekmostvoted": "/v2/user/{}/lastweekmostvoted",
@@ -137,9 +138,14 @@ class EksiApi:
         url = api + routes["user"].format(user_nick)
         response = self.session.get(url)
         return response.json()
+    
+    def get_user_entries(self, user_nick: str) -> dict:
+        url = api + routes["user_entries"].format(user_nick)
+        response = self.session.get(url)
+        return response.json()
 
     def get_user_favorites(self, user_nick: str) -> dict:
-        url = api + routes["user_favorites"]
+        url = api + routes["user_favorited"]
         response = self.session.get(url.format(user_nick))
         return response.json()
 
