@@ -139,18 +139,18 @@ class EksiApi:
         response = self.session.get(url)
         return response.json()
     
-    def get_user_entries(self, user_nick: str) -> dict:
-        url = api + routes["user_entries"].format(user_nick)
-        response = self.session.get(url)
-        return response.json()
-
-    def get_user_favorites(self, user_nick: str) -> dict:
-        url = api + routes["user_favorited"]
+    def get_user_entries(self, user_nick: str, page=1) -> dict:
+        url = api + routes["user_entries"] + "?p={}".format(page)
         response = self.session.get(url.format(user_nick))
         return response.json()
 
-    def get_user_lastvoted(self, user_nick: str) -> dict:
-        url = api + routes["user_lastvoted"]
+    def get_user_favorites(self, user_nick: str, page=1) -> dict:
+        url = api + routes["user_favorited"] + "?p={}".format(page)
+        response = self.session.get(url.format(user_nick))
+        return response.json()
+
+    def get_user_lastvoted(self, user_nick: str, page=1) -> dict:
+        url = api + routes["user_lastvoted"] + "?p={}".format(page)
         response = self.session.get(url.format(user_nick))
         return response.json()
 
@@ -184,13 +184,13 @@ class EksiApi:
         response = self.session.post(url, json=filters)
         return response.json()
 
-    def get_index_popular(self) -> dict:
-        url = api + routes["index_getpopular"]
+    def get_index_popular(self, page=1) -> dict:
+        url = api + routes["index_popular"] + "?p={}".format(page)
         response = self.session.get(url)
         return response.json()
 
-    def get_index_today(self) -> dict:
-        url = api + routes["index_gettoday"]
+    def get_index_today(self, page=1) -> dict:
+        url = api + routes["index_today"] + "?p={}".format(page)
         response = self.session.get(url)
         return response.json()
 
@@ -203,14 +203,3 @@ class EksiApi:
         url = api + routes["entry_unfavorite"]
         response = self.session.delete(url, data={"entry_id": entry_id})
         return response.json()
-    
-
-
-
-
-    
-
-
-
-
-        
