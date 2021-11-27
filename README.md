@@ -1,11 +1,11 @@
 # Ekşisözlük Unofficial API Documentation - 2021
 
 
-See [Jupyter Notebook](https://github.com/e4c6/eksi_unofficial_api/blob/master/eksi_api.ipynb) for a tutorial on EksiSozluk.py library.
+See [Jupyter Notebook](https://github.com/e4c6/eksi_unofficial_api/blob/master/Docs/eksi_api.ipynb) for a tutorial on EksiSozluk.py library.
 
 Note: $ denotes a variable.
 
-Version 1 of this documentation has been [deprecated](V1.md).
+Version 1 of this documentation has been [deprecated](Docs/V1.md).
 
 Version 2 is [documented on Postman](https://documenter.getpostman.com/view/6963920/TzzEoZpq).
 
@@ -13,7 +13,7 @@ The Version 2 collection can be   [![collection](https://run.pstmn.io/button.svg
 
 
 
-You can find the mitm-patched APK [in the repo.](eksi-mitm-patched.apk)
+You can find the mitm-patched APK [in the repo.](APK/eksi-mitm-patched.apk)
 
 This library is a work in progress, any contribution are welcome.
 
