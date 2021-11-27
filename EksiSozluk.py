@@ -1,14 +1,21 @@
 import uuid
 import requests
 import logging
-from Models.__init__ import *
-from Models.EksiToken import EksiToken, LoginResponse
+from Models.Auth.EksiToken import EksiToken
+from Models.Entry.Entry import Entry
+from Models.Exceptions.EntryNotFoundException import EntryNotFoundException
+from Models.Exceptions.TopicNotFoundException import TopicNotFoundException
+from Models.Exceptions.UserNotFoundException import UserNotFoundException
+from Models.Responses.LoginResponse import LoginResponse
+from Models.Responses.TopicResponse import TopicResponse, Message
+from Models.Responses.UserResponse import UserResponse
+from Models.Topic.Topic import Topic
+from Models.User.User import User
 
 logging.basicConfig(level=logging.DEBUG)
 
 api = "https://api.eksisozluk.com"
 api_secret = "68f779c5-4d39-411a-bd12-cbcc50dc83dd"
-
 
 routes = {
     "login": "/Token",
@@ -35,6 +42,7 @@ routes = {
     "index_setchannelfilter": "/v2/index/setchannelfilter",
 }
 
+
 class EksiApi:
     def __init__(self, username: str = None, password: str = None) -> None:
         self.username = username
@@ -53,7 +61,6 @@ class EksiApi:
         self.session.headers["Authorization"] = "Bearer " + self.token.access_token
         self.session.headers["Client-Secret"] = self.client_secret
         self.session.headers["Api-Secret"] = api_secret
-
 
     def get_client_info(self):
         headers = {
@@ -84,8 +91,6 @@ class EksiApi:
         self.__logger.debug("Token: {}".format(self.token))
         self.set_session_headers()
 
-
-
     def anon_login(self) -> EksiToken:
         url = api + routes["anon_login"]
         payload = {
@@ -102,7 +107,6 @@ class EksiApi:
         }
         response = requests.post(url, headers=headers, data=payload)
         return LoginResponse.from_dict(response.json()).data
-
 
     def login(self, username: str, password: str) -> EksiToken:
         url = api + routes["login"]
@@ -124,21 +128,30 @@ class EksiApi:
         response = requests.post(url, headers=headers, data=payload)
         return EksiToken.from_dict(response.json())
 
-    def get_entry(self, entry_id: int) -> dict:
+    def get_entry(self, entry_id: int) -> Entry:
         url = api + routes["entry"].format(entry_id)
         response = self.session.get(url)
-        return response.json()
+        topic_response = TopicResponse.from_dict(response.json())
+        if topic_response.message == Message.ENTRY_BULUNAMADI:
+            raise EntryNotFoundException("Entry not found")
+        return topic_response.topic.get_first_entry()
 
-    def get_topic(self, topic_id: int) -> dict:
+    def get_topic(self, topic_id: int) -> Topic:
         url = api + routes["topic"].format(topic_id)
         response = self.session.get(url)
-        return response.json()
+        if response.status_code == 500:
+            raise TopicNotFoundException("Topic not found")
+        topic_response = TopicResponse.from_dict(response.json())
+        return topic_response.topic
 
-    def get_user(self, user_nick: str) -> dict:
+    def get_user(self, user_nick: str) -> User:
         url = api + routes["user"].format(user_nick)
         response = self.session.get(url)
-        return response.json()
-    
+        if response.status_code == 500:
+            raise UserNotFoundException("User not found")
+        user_response = UserResponse.from_dict(response.json())
+        return user_response.user
+
     def get_user_entries(self, user_nick: str, page=1) -> dict:
         url = api + routes["user_entries"] + "?p={}".format(page)
         response = self.session.get(url.format(user_nick))
