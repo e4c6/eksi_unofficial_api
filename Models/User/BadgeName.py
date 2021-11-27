@@ -1,0 +1,27 @@
+from enum import Enum
+
+
+class BadgeName(Enum):
+    AZIMLI = "azimli"
+    BOT = "bot"
+    CIZRELI = "cizreli"
+    CPU = "cpu"
+    EDITÖR = "editör"
+    EKŞI = "ekşi"
+    EKŞITEKER = "ekşiteker"
+    EMEKLI = "emekli"
+    GUDIK = "gudik"
+    ITFAIYECI = "itfaiyeci"
+    KARAGÖZ = "karagöz"
+    KAYIP = "kayıp"
+    LANETLI = "lanetli"
+    LEYLA = "leyla"
+    MERHUM = "merhum"
+    MÜCAHIT = "mücahit"
+    ORGANIZATÖR = "organizatör"
+    ORMANCI = "ormancı"
+    PRAETOR = "praetor"
+    SCENER = "scener"
+    TASNIFÇI = "tasnifçi"
+    THE_64_BIT = "64-bit"
+    ÇAYLAK = "çaylak"
