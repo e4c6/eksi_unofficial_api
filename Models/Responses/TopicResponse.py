@@ -1,10 +1,6 @@
+from Models.Responses.ResponseMessage import Message
 from Models.Topic.Topic import Topic
 from Models.__init__ import *
-
-
-class Message(Enum):
-    AN_ERROR_HAS_OCCURRED = "An error has occurred."
-    ENTRY_BULUNAMADI = "entry bulunamadı"
 
 
 @dataclass
