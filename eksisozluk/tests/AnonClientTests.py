@@ -2,7 +2,7 @@ import pytest
 
 from eksisozluk.EksiSozluk import EksiApi
 
-api = None
+api: EksiApi
 
 
 @pytest.mark.dependency()
@@ -14,14 +14,12 @@ def test_anon_client():
 
 @pytest.mark.dependency(depends=['test_anon_client'])
 def test_anon_client_get_entry():
-    global api
     entry = api.get_entry(1)
     assert (entry.id == 1)
 
 
 @pytest.mark.dependency(depends=['test_anon_client'])
 def test_anon_client_get_topic():
-    global api
     topic = api.get_topic(7006370)
     assert topic.success
 
@@ -30,3 +28,8 @@ def test_anon_client_get_topic():
 def test_anon_client_get_user():
     user = api.get_user("nimzo")
     assert user.user_info.user_identifier.nick == "nimzo"
+
+@pytest.mark.dependency(depends=['test_anon_client'])
+def test_anon_client_get_index_today():
+    topic_response = api.get_index_today()
+    assert len(topic_response.index.topics) > 0
