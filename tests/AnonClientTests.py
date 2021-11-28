@@ -1,8 +1,9 @@
 import pytest
 
-from EksiSozluk import EksiApi
+from eksisozluk.EksiSozluk import EksiApi
 
 api = None
+
 
 @pytest.mark.dependency()
 def test_anon_client():

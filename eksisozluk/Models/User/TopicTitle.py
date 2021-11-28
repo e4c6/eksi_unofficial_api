@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Models import from_str, from_none
+from eksisozluk.Models import from_str, from_none
 
 
 @dataclass

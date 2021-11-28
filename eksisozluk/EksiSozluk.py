@@ -1,19 +1,19 @@
 import uuid
 import requests
 import logging
-from Models.Auth.EksiToken import EksiToken
-from Models.Entry.Entry import Entry
-from Models.Exceptions.ClientException import ClientException
-from Models.Exceptions.EntryNotFoundException import EntryNotFoundException
-from Models.Exceptions.TopicNotFoundException import TopicNotFoundException
-from Models.Exceptions.UserNotFoundException import UserNotFoundException
-from Models.Responses.LoginResponse import LoginResponse
-from Models.Responses.TopicResponse import TopicResponse
-from Models.Responses.ResponseMessage import Message
-from Models.Responses.UserEntriesResponse import UserEntriesResponse
-from Models.Responses.UserResponse import UserResponse
-from Models.Topic.Topic import Topic
-from Models.User.User import User
+from eksisozluk.Models.Auth.EksiToken import EksiToken
+from eksisozluk.Models.Entry.Entry import Entry
+from eksisozluk.Models.Exceptions.ClientException import ClientException
+from eksisozluk.Models.Exceptions.EntryNotFoundException import EntryNotFoundException
+from eksisozluk.Models.Exceptions.TopicNotFoundException import TopicNotFoundException
+from eksisozluk.Models.Exceptions.UserNotFoundException import UserNotFoundException
+from eksisozluk.Models.Responses.LoginResponse import LoginResponse
+from eksisozluk.Models.Responses.TopicResponse import TopicResponse
+from eksisozluk.Models.Responses.ResponseMessage import Message
+from eksisozluk.Models.Responses.UserEntriesResponse import UserEntriesResponse
+from eksisozluk.Models.Responses.UserResponse import UserResponse
+from eksisozluk.Models.Topic.Topic import Topic
+from eksisozluk.Models.User.User import User
 
 logging.basicConfig(level=logging.DEBUG)
 

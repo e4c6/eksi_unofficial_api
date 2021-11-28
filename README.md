@@ -1,6 +1,6 @@
 # Ekşisözlük Unofficial API Documentation - 2021
 
-Version 1 of this documentation has been [deprecated](Docs/V1.md).
+Version 1 of this documentation has been [deprecated](doc/V1.md).
 
 Version 2 is [documented on Postman](https://documenter.getpostman.com/view/6963920/TzzEoZpq).
 
@@ -13,17 +13,17 @@ This library is a work in progress, any contribution are welcome.
 ### Installation
 
 ```shell
-git clone https://github.com/e4c6/eksi_unofficial_api && cd eksi_unofficial_api
+pip install eksisozluk
 ```
 
 ### Usage
 
 ```python
-from EksiSozluk import EksiApi
+from eksisozluk.EksiSozluk import EksiApi
 
-client = EksiApi() # or EksiApi(username, password)
+client = EksiApi()  # or EksiApi(username, password)
 
-entry = client.get_entry(<entry_id>)
-topic = client.get_topic(<topic_id>, <page>)
-author = client.get_user(<user_nick>)
+entry = client.get_entry( < entry_id >)
+topic = client.get_topic( < topic_id >, < page >)
+author = client.get_user( < user_nick >)
 ```

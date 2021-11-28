@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import List, Any, Optional
 
-from Models import from_int, from_str, from_list, from_none, from_bool, from_union, to_class
-from Models.Entry.Entry import Entry
-from Models.User.EntryCounts import EntryCounts
-from Models.Topic.Video import Video
+from eksisozluk.Models import from_int, from_str, from_list, from_none, from_bool, from_union, to_class
+from eksisozluk.Models.Entry.Entry import Entry
+from eksisozluk.Models.User.EntryCounts import EntryCounts
+from eksisozluk.Models.Topic.Video import Video
 
 
 @dataclass

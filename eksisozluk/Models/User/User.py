@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import List, Optional, Any
 
-from Models import from_list, from_bool, from_int, from_union, from_none, from_str, to_class
-from Models.User.Badge import Badge
-from Models.Topic.Topic import Topic
-from Models.User.UserInfo import UserInfo
+from eksisozluk.Models import from_list, from_bool, from_int, from_union, from_none, from_str, to_class
+from eksisozluk.Models.User.Badge import Badge
+from eksisozluk.Models.Topic.Topic import Topic
+from eksisozluk.Models.User.UserInfo import UserInfo
 
 
 @dataclass

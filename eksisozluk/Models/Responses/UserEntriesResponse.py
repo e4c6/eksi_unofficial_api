@@ -1,6 +1,6 @@
-from Models.Responses.ResponseMessage import Message
-from Models.User.EntrySummary import EntrySummary
-from Models.__init__ import *
+from eksisozluk.Models.Responses.ResponseMessage import Message
+from eksisozluk.Models.User.EntrySummary import EntrySummary
+from eksisozluk.Models.__init__ import *
 
 
 @dataclass

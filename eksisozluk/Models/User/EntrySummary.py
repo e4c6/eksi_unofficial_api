@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Models import to_class
-from Models.Entry.Entry import Entry
-from Models.User.TopicID import TopicID
+from eksisozluk.Models import to_class
+from eksisozluk.Models.Entry.Entry import Entry
+from eksisozluk.Models.User.TopicID import TopicID
 
 
 @dataclass

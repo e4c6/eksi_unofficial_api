@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Models import from_int, to_enum
-from Models.User.KarmaName import KarmaName
+from eksisozluk.Models import from_int, to_enum
+from eksisozluk.Models.User.KarmaName import KarmaName
 
 
 @dataclass

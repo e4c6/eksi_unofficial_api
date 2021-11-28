@@ -1,5 +1,5 @@
-from Models.User.User import User
-from Models.__init__ import *
+from eksisozluk.Models.User.User import User
+from eksisozluk.Models.__init__ import *
 
 
 @dataclass

@@ -1,6 +1,6 @@
-from Models.Responses.ResponseMessage import Message
-from Models.Topic.Topic import Topic
-from Models.__init__ import *
+from eksisozluk.Models.Responses.ResponseMessage import Message
+from eksisozluk.Models.Topic.Topic import Topic
+from eksisozluk.Models.__init__ import *
 
 
 @dataclass

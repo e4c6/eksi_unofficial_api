@@ -1,8 +1,5 @@
-from dataclasses import dataclass
-from typing import Optional, Any
-
-from Models import from_union, from_bool, from_none, from_str, to_class
-from Models.Auth.EksiToken import EksiToken
+from eksisozluk.Models.__init__ import *
+from eksisozluk.Models.Auth.EksiToken import EksiToken
 
 
 @dataclass

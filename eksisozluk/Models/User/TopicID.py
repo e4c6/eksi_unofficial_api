@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Models import from_int, from_str, to_class
-from Models.User.TopicTitle import TopicTitle
+from eksisozluk.Models import from_int, from_str, to_class
+from eksisozluk.Models.User.TopicTitle import TopicTitle
 
 
 @dataclass

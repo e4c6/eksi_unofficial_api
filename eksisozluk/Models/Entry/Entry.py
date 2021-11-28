@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional, List, Any
 
-from Models import from_int, from_str, from_datetime, from_bool, from_none, from_union, from_list, to_class
-from Models.User.UserIdentifier import UserIdentifier
+from eksisozluk.Models import from_int, from_str, from_datetime, from_bool, from_none, from_union, from_list, to_class
+from eksisozluk.Models.User.UserIdentifier import UserIdentifier
 
 
 @dataclass

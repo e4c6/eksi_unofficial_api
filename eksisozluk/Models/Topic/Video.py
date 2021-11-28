@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from Models import from_none, from_bool
+from eksisozluk.Models import from_none, from_bool
 
 
 @dataclass

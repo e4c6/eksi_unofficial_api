@@ -1,4 +1,4 @@
-from Models.__init__ import *
+from eksisozluk.Models import *
 from datetime import datetime, timedelta
 
 

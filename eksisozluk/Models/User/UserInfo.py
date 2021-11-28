@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional, Any
 
-from Models import from_int, from_datetime, from_bool, from_none, from_union, from_str, to_class
-from Models.User.CursePeriod import CursePeriod
-from Models.User.Karma import Karma
-from Models.User.UserIdentifier import UserIdentifier
-from Models.User.UserInfoEntryCounts import UserInfoEntryCounts
+from eksisozluk.Models import from_int, from_datetime, from_bool, from_none, from_union, from_str, to_class
+from eksisozluk.Models.User.CursePeriod import CursePeriod
+from eksisozluk.Models.User.Karma import Karma
+from eksisozluk.Models.User.UserIdentifier import UserIdentifier
+from eksisozluk.Models.User.UserInfoEntryCounts import UserInfoEntryCounts
 
 
 @dataclass

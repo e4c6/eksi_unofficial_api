@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from Models import from_datetime
+from eksisozluk.Models import from_datetime
 
 
 @dataclass
