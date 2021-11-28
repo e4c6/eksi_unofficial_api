@@ -7,6 +7,7 @@ from eksisozluk.Models.Exceptions.ClientException import ClientException
 from eksisozluk.Models.Exceptions.EntryNotFoundException import EntryNotFoundException
 from eksisozluk.Models.Exceptions.TopicNotFoundException import TopicNotFoundException
 from eksisozluk.Models.Exceptions.UserNotFoundException import UserNotFoundException
+from eksisozluk.Models.Responses.IndexResponse import IndexResponse
 from eksisozluk.Models.Responses.LoginResponse import LoginResponse
 from eksisozluk.Models.Responses.TopicResponse import TopicResponse
 from eksisozluk.Models.Responses.ResponseMessage import Message
@@ -205,15 +206,19 @@ class EksiApi:
         response = self.session.post(url, json=filters)
         return response.json()
 
-    def get_index_popular(self, page=1) -> dict:
+    def get_index_popular(self, page=1) -> IndexResponse:
         url = api + routes["index_popular"] + "?p={}".format(page)
         response = self.session.get(url)
-        return response.json()
+        if response.status_code == 200:
+            return IndexResponse.from_dict(response.json())
+        raise ClientException(f"Unknown error: {response.status_code}")
 
-    def get_index_today(self, page=1) -> dict:
+    def get_index_today(self, page=1) -> IndexResponse:
         url = api + routes["index_today"] + "?p={}".format(page)
         response = self.session.get(url)
-        return response.json()
+        if response.status_code == 200:
+            return IndexResponse.from_dict(response.json())
+        raise ClientException(f"Unknown error: {response.status_code}")
 
     def favorite_entry(self, entry_id: int) -> dict:
         url = api + routes["entry_favorite"]
