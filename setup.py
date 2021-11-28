@@ -20,7 +20,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages=setuptools.find_packages(include=["eksisozluk", "eksisozluk.*"]),
+    packages=setuptools.find_packages(),
     install_requires=["requests", "python-dateutil"],
     python_requires=">=3.6",
 )
