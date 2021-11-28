@@ -3,11 +3,14 @@ import requests
 import logging
 from Models.Auth.EksiToken import EksiToken
 from Models.Entry.Entry import Entry
+from Models.Exceptions.ClientException import ClientException
 from Models.Exceptions.EntryNotFoundException import EntryNotFoundException
 from Models.Exceptions.TopicNotFoundException import TopicNotFoundException
 from Models.Exceptions.UserNotFoundException import UserNotFoundException
 from Models.Responses.LoginResponse import LoginResponse
-from Models.Responses.TopicResponse import TopicResponse, Message
+from Models.Responses.TopicResponse import TopicResponse
+from Models.Responses.ResponseMessage import Message
+from Models.Responses.UserEntriesResponse import UserEntriesResponse
 from Models.Responses.UserResponse import UserResponse
 from Models.Topic.Topic import Topic
 from Models.User.User import User
@@ -136,26 +139,31 @@ class EksiApi:
             raise EntryNotFoundException("Entry not found")
         return topic_response.topic.get_first_entry()
 
-    def get_topic(self, topic_id: int) -> Topic:
-        url = api + routes["topic"].format(topic_id)
+    def get_topic(self, topic_id: int, page=1) -> TopicResponse:
+        url = api + routes["topic"].format(topic_id) + "?p={}".format(page)
         response = self.session.get(url)
-        if response.status_code == 500:
+        if response.status_code == 200:
+            return TopicResponse.from_dict(response.json())
+        elif response.status_code == 500:
             raise TopicNotFoundException("Topic not found")
-        topic_response = TopicResponse.from_dict(response.json())
-        return topic_response.topic
+        raise ClientException(f"Unknown error: {response.status_code}")
 
     def get_user(self, user_nick: str) -> User:
         url = api + routes["user"].format(user_nick)
         response = self.session.get(url)
-        if response.status_code == 500:
+        if response.status_code == 200:
+            user_response = UserResponse.from_dict(response.json())
+            return user_response.user
+        elif response.status_code == 500:
             raise UserNotFoundException("User not found")
-        user_response = UserResponse.from_dict(response.json())
-        return user_response.user
+        raise ClientException(f"Unknown error: {response.status_code}")
 
-    def get_user_entries(self, user_nick: str, page=1) -> dict:
+    def get_user_entries(self, user_nick: str, page=1) -> UserEntriesResponse:
         url = api + routes["user_entries"] + "?p={}".format(page)
         response = self.session.get(url.format(user_nick))
-        return response.json()
+        if response.status_code == 200:
+            return UserEntriesResponse.from_dict(response.json())
+        raise ClientException(f"Unknown error: {response.status_code}")
 
     def get_user_favorites(self, user_nick: str, page=1) -> dict:
         url = api + routes["user_favorited"] + "?p={}".format(page)
