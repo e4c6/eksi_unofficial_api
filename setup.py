@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="eksisozluk",
-    version="1.0.2",
+    version="1.0.3",
     author="Mahir Tüzel",
     author_email="e4c6@dataso.me",
     description="Ekşisözlük API client",
