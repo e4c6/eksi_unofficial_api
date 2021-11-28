@@ -6,7 +6,7 @@ from eksisozluk.Models.__init__ import *
 class IndexResponse:
     success: bool
     message: None
-    data: Index
+    index: Index
 
     @staticmethod
     def from_dict(obj: Any) -> 'IndexResponse':
@@ -20,7 +20,7 @@ class IndexResponse:
         result: dict = {}
         result["Success"] = from_bool(self.success)
         result["Message"] = from_none(self.message)
-        result["Data"] = to_class(Index, self.data)
+        result["Data"] = to_class(Index, self.index)
         return result
 
 
