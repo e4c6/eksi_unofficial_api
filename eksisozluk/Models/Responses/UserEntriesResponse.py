@@ -1,4 +1,5 @@
 from eksisozluk.Models.Responses.ResponseMessage import Message
+from eksisozluk.Models.Topic.Topic import Topic
 from eksisozluk.Models.User.EntrySummary import EntrySummary
 from eksisozluk.Models.__init__ import *
 
@@ -14,7 +15,7 @@ class UserEntries:
     @staticmethod
     def from_dict(obj: Any) -> 'UserEntries':
         assert isinstance(obj, dict)
-        pinned_entry = from_none(obj.get("PinnedEntry"))
+        pinned_entry = from_union([from_none, Topic.from_dict], obj.get("PinnedEntry"))
         entries = from_list(EntrySummary.from_dict, obj.get("Entries"))
         page_count = from_int(obj.get("PageCount"))
         page_size = from_int(obj.get("PageSize"))
@@ -23,7 +24,7 @@ class UserEntries:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["PinnedEntry"] = from_none(self.pinned_entry)
+        result["PinnedEntry"] = from_union([from_none, lambda x: to_class(Topic, x)], self.pinned_entry)
         result["Entries"] = from_list(lambda x: to_class(EntrySummary, x), self.entries)
         result["PageCount"] = from_int(self.page_count)
         result["PageSize"] = from_int(self.page_size)
@@ -34,7 +35,7 @@ class UserEntries:
 @dataclass
 class UserEntriesResponse:
     success: bool
-    data: UserEntries
+    user_entries: UserEntries
     message: Optional[Message] = None
 
     @staticmethod
@@ -42,14 +43,14 @@ class UserEntriesResponse:
         assert isinstance(obj, dict)
         success = from_bool(obj.get("Success"))
         message = from_union([from_none, Message], obj.get("Message"))
-        data = UserEntries.from_dict(obj.get("Data"))
-        return UserEntriesResponse(success, data, message)
+        user_entries = UserEntries.from_dict(obj.get("Data"))
+        return UserEntriesResponse(success, user_entries, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["Success"] = from_bool(self.success)
         result["Message"] = from_union([from_none, lambda x: to_enum(Message, x)], self.message)
-        result["Data"] = to_class(UserEntries, self.data)
+        result["Data"] = to_class(UserEntries, self.user_entries)
         return result
 
 
