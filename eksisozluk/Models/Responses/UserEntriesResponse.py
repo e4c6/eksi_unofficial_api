@@ -43,7 +43,7 @@ class UserEntriesResponse:
         success = from_bool(obj.get("Success"))
         message = from_union([from_none, Message], obj.get("Message"))
         data = UserEntries.from_dict(obj.get("Data"))
-        return UserEntriesResponse(success, message, data)
+        return UserEntriesResponse(success, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
