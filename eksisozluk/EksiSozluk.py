@@ -175,6 +175,11 @@ class EksiApi:
         url = api + routes["user_lastvoted"] + "?p={}".format(page)
         response = self.session.get(url.format(user_nick))
         return response.json()
+    
+    def get_user_lastweekmostvoted(self, user_nick: str, page=1) -> dict:
+        url = api + routes["user_lastweekmostvoted"] + "?p={}".format(page)
+        response = self.session.get(url.format(user_nick))
+        return response.json()
 
     def follow_user(self, user_nick: str) -> dict:
         url = api + routes["user_follow"]
