@@ -183,22 +183,22 @@ class EksiApi:
 
     def follow_user(self, user_nick: str) -> dict:
         url = api + routes["user_follow"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def unfollow_user(self, user_nick: str) -> dict:
         url = api + routes["user_unfollow"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def block_user(self, user_nick: str) -> dict:
         url = api + routes["user_block"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def unblock_user(self, user_nick: str) -> dict:
         url = api + routes["user_unblock"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def get_index_filters(self) -> dict:
@@ -227,10 +227,10 @@ class EksiApi:
 
     def favorite_entry(self, entry_id: int) -> dict:
         url = api + routes["entry_favorite"]
-        response = self.session.post(url, data={"entry_id": entry_id})
+        response = self.session.post(url, data={"Id": entry_id})
         return response.json()
 
     def unfavorite_entry(self, entry_id: int) -> dict:
         url = api + routes["entry_unfavorite"]
-        response = self.session.delete(url, data={"entry_id": entry_id})
+        response = self.session.delete(url, data={"Id": entry_id})
         return response.json()
