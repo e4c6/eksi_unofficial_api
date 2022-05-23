@@ -1,7 +1,10 @@
-import uuid
-import requests
 import logging
+import uuid
+
+import requests
+
 from eksisozluk.Models.Auth.EksiToken import EksiToken
+from eksisozluk.Models.ClientSettings.TimeResponse import TimeResponse
 from eksisozluk.Models.Entry.Entry import Entry
 from eksisozluk.Models.Exceptions.ClientException import ClientException
 from eksisozluk.Models.Exceptions.EntryNotFoundException import EntryNotFoundException
@@ -9,8 +12,8 @@ from eksisozluk.Models.Exceptions.TopicNotFoundException import TopicNotFoundExc
 from eksisozluk.Models.Exceptions.UserNotFoundException import UserNotFoundException
 from eksisozluk.Models.Responses.IndexResponse import IndexResponse
 from eksisozluk.Models.Responses.LoginResponse import LoginResponse
-from eksisozluk.Models.Responses.TopicResponse import TopicResponse
 from eksisozluk.Models.Responses.ResponseMessage import Message
+from eksisozluk.Models.Responses.TopicResponse import TopicResponse
 from eksisozluk.Models.Responses.UserEntriesResponse import UserEntriesResponse
 from eksisozluk.Models.Responses.UserResponse import UserResponse
 from eksisozluk.Models.Topic.Topic import Topic
@@ -25,6 +28,7 @@ routes = {
     "login": "/Token",
     "anon_login": "/v2/account/anonymoustoken",
     "client_info": "/v2/clientsettings/info",
+    "time": "/v2/clientsettings/time",
     "topic": "/v2/topic/{}",
     "entry": "/v2/entry/{}",
     "entry_favorite": "/v2/entry/favorite",
@@ -70,12 +74,12 @@ class EksiApi:
         headers = {
             "Client-secret": self.client_secret,
             "Content-type": "application/x-www-form-urlencoded",
-            "User-agent": "okhttp/3.12.1"
+            "User-agent": "okhttp/3.12.1",
         }
-        payload = {
-            "Api-secret": api_secret
-        }
-        response = requests.post(api + routes["client_info"], headers=headers, data=payload)
+        payload = {"Api-secret": api_secret}
+        response = requests.post(
+            api + routes["client_info"], headers=headers, data=payload
+        )
         return response.json()
 
     def __hook(self, res, *args, **kwargs):
@@ -103,11 +107,11 @@ class EksiApi:
             "Build": "51",
             "Api-Secret": api_secret,
             "Client-Secret": self.client_secret,
-            "ClientUniqueId": self.client_unique_id
+            "ClientUniqueId": self.client_unique_id,
         }
         headers = {
             "Content-type": "application/x-www-form-urlencoded",
-            "User-agent": "okhttp/3.12.1"
+            "User-agent": "okhttp/3.12.1",
         }
         response = requests.post(url, headers=headers, data=payload)
         return LoginResponse.from_dict(response.json()).data
@@ -123,11 +127,11 @@ class EksiApi:
             "Api-Secret": api_secret,
             "Client-Secret": self.client_secret,
             "ClientUniqueId": self.client_unique_id,
-            "username": username
+            "username": username,
         }
         headers = {
             "Content-type": "application/x-www-form-urlencoded",
-            "User-Agent": "okhttp/3.12.1"
+            "User-Agent": "okhttp/3.12.1",
         }
         response = requests.post(url, headers=headers, data=payload)
         return EksiToken.from_dict(response.json())
@@ -176,24 +180,29 @@ class EksiApi:
         response = self.session.get(url.format(user_nick))
         return response.json()
 
+    def get_user_lastweekmostvoted(self, user_nick: str, page=1) -> dict:
+        url = api + routes["user_lastweekmostvoted"] + "?p={}".format(page)
+        response = self.session.get(url.format(user_nick))
+        return response.json()
+
     def follow_user(self, user_nick: str) -> dict:
         url = api + routes["user_follow"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def unfollow_user(self, user_nick: str) -> dict:
         url = api + routes["user_unfollow"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def block_user(self, user_nick: str) -> dict:
         url = api + routes["user_block"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def unblock_user(self, user_nick: str) -> dict:
         url = api + routes["user_unblock"]
-        response = self.session.post(url, data={"user_nick": user_nick})
+        response = self.session.post(url, data={"nick": user_nick})
         return response.json()
 
     def get_index_filters(self) -> dict:
@@ -222,10 +231,15 @@ class EksiApi:
 
     def favorite_entry(self, entry_id: int) -> dict:
         url = api + routes["entry_favorite"]
-        response = self.session.post(url, data={"entry_id": entry_id})
+        response = self.session.post(url, data={"Id": entry_id})
         return response.json()
 
     def unfavorite_entry(self, entry_id: int) -> dict:
         url = api + routes["entry_unfavorite"]
-        response = self.session.delete(url, data={"entry_id": entry_id})
+        response = self.session.delete(url, data={"Id": entry_id})
         return response.json()
+
+    def get_time(self):
+        url = api + routes["time"]
+        response = self.session.get(url)
+        return TimeResponse.from_dict(response.json())
